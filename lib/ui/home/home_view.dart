@@ -27,6 +27,10 @@ class _HomeViewState extends State<HomeView> {
                 if (homeProvider.image.path.isNotEmpty)
                   Image.file(homeProvider.image),
                 const SizedBox(height: 20),
+                if (homeProvider.category.label.isNotEmpty)
+                  Text(
+                    '${homeProvider.category.label}\n${homeProvider.category.score}',
+                  ),
                 ElevatedButton.icon(
                   onPressed: () {
                     homeProvider.takePhoto();

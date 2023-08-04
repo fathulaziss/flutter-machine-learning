@@ -16,7 +16,7 @@ class HomeProvider extends ChangeNotifier {
 
   late Classifier _classifier;
 
-  late Category category;
+  Category category = Category('', 0);
 
   late File _image = File('');
 

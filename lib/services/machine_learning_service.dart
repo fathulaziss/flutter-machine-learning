@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, cascade_invocations
+// ignore_for_file: avoid_print, cascade_invocations, no_default_cases
 
 import 'dart:math';
 
@@ -30,12 +30,10 @@ abstract class Classifier {
   late TensorImage _inputImage;
   late TensorBuffer _outputBuffer;
 
-  late dynamic _inputType;
-  late dynamic _outputType;
+  late TensorType _inputType;
+  late TensorType _outputType;
 
   final String _labelsFileName = 'assets/datasets/labels.txt';
-
-  final int _labelsLength = 1001;
 
   late dynamic _probabilityProcessor;
 
@@ -59,8 +57,13 @@ abstract class Classifier {
       _outputShape = interpreter.getOutputTensor(0).shape;
       _inputType = interpreter.getInputTensor(0).type;
       _outputType = interpreter.getOutputTensor(0).type;
+      print('inputType : $_inputType');
+      print('outputType : $_outputType');
 
-      _outputBuffer = TensorBuffer.createFixedSize(_outputShape, _outputType);
+      _outputBuffer = TensorBuffer.createFixedSize(
+        _outputShape,
+        TensorBufferUint8(_outputShape).getDataType(),
+      );
       _probabilityProcessor =
           TensorProcessorBuilder().add(postProcessNormalizeOp).build();
     } catch (e) {
@@ -70,7 +73,7 @@ abstract class Classifier {
 
   Future<void> loadLabels() async {
     labels = await FileUtil.loadLabels(_labelsFileName);
-    if (labels.length == _labelsLength) {
+    if (labels.isNotEmpty) {
       print('Labels loaded successfully');
     } else {
       print('Unable to load labels');
@@ -95,7 +98,7 @@ abstract class Classifier {
 
   Category predict(Image image) {
     final pres = DateTime.now().millisecondsSinceEpoch;
-    _inputImage = TensorImage(_inputType);
+    _inputImage = TensorImage();
     _inputImage.loadImage(image);
     _inputImage = _preProcess();
     final pre = DateTime.now().millisecondsSinceEpoch - pres;
