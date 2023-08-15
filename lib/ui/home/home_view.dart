@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_machine_learning/common/styles.dart';
 import 'package:flutter_machine_learning/services/navigation_service.dart';
 import 'package:flutter_machine_learning/ui/picture/picture_view.dart';
+import 'package:flutter_machine_learning/ui/video/video_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -26,7 +27,7 @@ class HomeView extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => NavigationService.pushNamed(VideoView.routeName),
               child: Text(
                 'Machine Learning Video',
                 style: textStyle.labelMedium!.copyWith(color: Colors.white),

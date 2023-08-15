@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_machine_learning/common/styles.dart';
 import 'package:flutter_machine_learning/provider/picture_provider.dart';
+import 'package:flutter_machine_learning/provider/video_provider.dart';
 import 'package:flutter_machine_learning/services/navigation_service.dart';
 import 'package:flutter_machine_learning/ui/home/home_view.dart';
 import 'package:flutter_machine_learning/ui/picture/picture_view.dart';
+import 'package:flutter_machine_learning/ui/video/video_view.dart';
 import 'package:flutter_machine_learning/utils/app_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +34,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<PictureProvider>(
           create: (context) => PictureProvider(),
         ),
+        ChangeNotifierProvider<VideoProvider>(
+          create: (context) => VideoProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -51,6 +56,7 @@ class _MyAppState extends State<MyApp> {
         routes: {
           HomeView.routeName: (context) => const HomeView(),
           PictureView.routeName: (context) => const PictureView(),
+          VideoView.routeName: (context) => const VideoView(),
         },
       ),
     );
