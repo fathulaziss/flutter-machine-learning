@@ -9,8 +9,8 @@ import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import 'package:tflite_flutter_helper_plus/tflite_flutter_helper_plus.dart';
 
-class HomeProvider extends ChangeNotifier {
-  HomeProvider() {
+class PictureProvider extends ChangeNotifier {
+  PictureProvider() {
     initData();
   }
 

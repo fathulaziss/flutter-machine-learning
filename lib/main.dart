@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_machine_learning/common/styles.dart';
-import 'package:flutter_machine_learning/provider/home_provider.dart';
+import 'package:flutter_machine_learning/provider/picture_provider.dart';
 import 'package:flutter_machine_learning/services/navigation_service.dart';
 import 'package:flutter_machine_learning/ui/home/home_view.dart';
+import 'package:flutter_machine_learning/ui/picture/picture_view.dart';
 import 'package:flutter_machine_learning/utils/app_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -28,8 +29,8 @@ class _MyAppState extends State<MyApp> {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<HomeProvider>(
-          create: (context) => HomeProvider(),
+        ChangeNotifierProvider<PictureProvider>(
+          create: (context) => PictureProvider(),
         ),
       ],
       child: MaterialApp(
@@ -49,6 +50,7 @@ class _MyAppState extends State<MyApp> {
         },
         routes: {
           HomeView.routeName: (context) => const HomeView(),
+          PictureView.routeName: (context) => const PictureView(),
         },
       ),
     );

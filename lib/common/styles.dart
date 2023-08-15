@@ -17,6 +17,7 @@ final textStyle = TextTheme(
 final darkTheme = ThemeData(
   appBarTheme: AppBarTheme(
     color: Colors.transparent,
+    iconTheme: const IconThemeData(color: Colors.white),
     titleTextStyle: textStyle.titleSmall!.copyWith(color: Colors.white),
   ),
   brightness: Brightness.dark,
@@ -48,6 +49,7 @@ final darkTheme = ThemeData(
 final lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     color: Colors.green,
+    iconTheme: const IconThemeData(color: Colors.white),
     titleTextStyle: textStyle.titleSmall!.copyWith(color: Colors.white),
   ),
   brightness: Brightness.light,
