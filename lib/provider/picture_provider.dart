@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_machine_learning/services/classifier_quant.dart';
-import 'package:flutter_machine_learning/services/machine_learning_service.dart';
+import 'package:flutter_machine_learning/services/machine_learning_picture_service.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import 'package:tflite_flutter_helper_plus/tflite_flutter_helper_plus.dart';
@@ -14,7 +14,7 @@ class PictureProvider extends ChangeNotifier {
     initData();
   }
 
-  late Classifier _classifier;
+  late MachineLearningPictureService _classifier;
 
   Category category = Category('', 0);
 

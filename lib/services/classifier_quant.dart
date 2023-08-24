@@ -1,7 +1,7 @@
-import 'package:flutter_machine_learning/services/machine_learning_service.dart';
+import 'package:flutter_machine_learning/services/machine_learning_picture_service.dart';
 import 'package:tflite_flutter_helper_plus/tflite_flutter_helper_plus.dart';
 
-class ClassifierQuant extends Classifier {
+class ClassifierQuant extends MachineLearningPictureService {
   ClassifierQuant({int numThreads = 1}) : super(numThreads: numThreads);
 
   @override

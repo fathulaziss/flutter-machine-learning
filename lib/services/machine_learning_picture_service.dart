@@ -8,8 +8,8 @@ import 'package:logger/logger.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:tflite_flutter_helper_plus/tflite_flutter_helper_plus.dart';
 
-abstract class Classifier {
-  Classifier({int? numThreads}) {
+abstract class MachineLearningPictureService {
+  MachineLearningPictureService({int? numThreads}) {
     _interpreterOptions = InterpreterOptions();
 
     if (numThreads != null) {
@@ -19,6 +19,7 @@ abstract class Classifier {
     loadModel();
     loadLabels();
   }
+
   late Interpreter interpreter;
   late InterpreterOptions _interpreterOptions;
 
