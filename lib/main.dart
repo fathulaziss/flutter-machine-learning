@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_machine_learning/common/styles.dart';
@@ -10,7 +11,11 @@ import 'package:flutter_machine_learning/ui/video/video_view.dart';
 import 'package:flutter_machine_learning/utils/app_utils.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+List<CameraDescription> cameras = [];
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
   runApp(const MyApp());
 }
 
