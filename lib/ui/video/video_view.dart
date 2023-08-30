@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_machine_learning/model/recognition_model.dart';
 import 'package:flutter_machine_learning/model/stats_model.dart';
@@ -62,7 +63,9 @@ class _VideoViewState extends State<VideoView> {
 
   /// Returns Stack of bounding boxes
   Widget boundingBoxes(List<RecognitionModel>? results) {
-    print('cek results : $results');
+    if (kDebugMode) {
+      print('cek results : $results');
+    }
     if (results == null) {
       return Container();
     }

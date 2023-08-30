@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:isolate';
 
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_machine_learning/services/machine_learning_video_service.dart';
 import 'package:flutter_machine_learning/utils/image_utils.dart';
 import 'package:image/image.dart' as img;
@@ -31,7 +32,9 @@ class IsolateUtils {
     sendPort.send(port.sendPort);
 
     await for (final IsolateData isolateData in port) {
-      print('cek ini $isolateData');
+      if (kDebugMode) {
+        print('cek ini $isolateData');
+      }
       final classifier = MachineLearningVideoService(
         interpreter: Interpreter.fromAddress(isolateData.interpreterAddress!),
         labels: isolateData.labels,

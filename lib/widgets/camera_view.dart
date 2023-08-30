@@ -1,6 +1,7 @@
 import 'dart:isolate';
 
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_machine_learning/main.dart';
 import 'package:flutter_machine_learning/model/camera_model.dart';
@@ -117,7 +118,9 @@ class _CameraViewState extends State<CameraView> with WidgetsBindingObserver {
 
     /// perform inference in separate isolate
     final inferenceResults = await inference(isolateData);
-    print('cek inferenceResults : $inferenceResults');
+    if (kDebugMode) {
+      print('cek inferenceResults : $inferenceResults');
+    }
 
     final uiThreadInferenceElapsedTime =
         DateTime.now().millisecondsSinceEpoch - uiThreadTimeStart;

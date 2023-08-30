@@ -36,7 +36,7 @@ abstract class MachineLearningPictureService {
 
   final String _labelsFileName = 'assets/datasets/labels.txt';
 
-  late dynamic _probabilityProcessor;
+  late SequentialProcessor<TensorBuffer> _probabilityProcessor;
 
   late List<String> labels;
 
@@ -61,12 +61,24 @@ abstract class MachineLearningPictureService {
       print('inputType : $_inputType');
       print('outputType : $_outputType');
 
-      _outputBuffer = TensorBuffer.createFixedSize(
-        _outputShape,
-        TensorBufferUint8(_outputShape).getDataType(),
-      );
-      _probabilityProcessor =
-          TensorProcessorBuilder().add(postProcessNormalizeOp).build();
+      if (interpreter.getInputTensor(0).type == TensorType.uint8 &&
+          interpreter.getOutputTensor(0).type == TensorType.uint8) {
+        print('exe uint8');
+        _outputBuffer = TensorBuffer.createFixedSize(
+          _outputShape,
+          TensorBufferUint8(_outputShape).getDataType(),
+        );
+        _probabilityProcessor =
+            TensorProcessorBuilder().add(postProcessNormalizeOp).build();
+      } else {
+        print('exe float32');
+        _outputBuffer = TensorBuffer.createFixedSize(
+          _outputShape,
+          TensorBufferFloat(_outputShape).getDataType(),
+        );
+        _probabilityProcessor =
+            TensorProcessorBuilder().add(postProcessNormalizeOp).build();
+      }
     } catch (e) {
       print('Unable to create interpreter, Caught Exception: $e');
     }
@@ -99,7 +111,17 @@ abstract class MachineLearningPictureService {
 
   Category predict(Image image) {
     final pres = DateTime.now().millisecondsSinceEpoch;
-    _inputImage = TensorImage();
+
+    if (interpreter.getInputTensor(0).type == TensorType.uint8 &&
+        interpreter.getOutputTensor(0).type == TensorType.uint8) {
+      _inputImage = TensorImage();
+    } else {
+      _inputImage = TensorImage(TensorBufferFloat(_outputShape).getDataType());
+    }
+
+    // _inputImage = TensorImage();
+    // _inputImage = TensorImage(TensorBufferFloat(_outputShape).getDataType());
+
     _inputImage.loadImage(image);
     _inputImage = _preProcess();
     final pre = DateTime.now().millisecondsSinceEpoch - pres;
@@ -112,10 +134,16 @@ abstract class MachineLearningPictureService {
 
     print('Time to run inference: $run ms');
 
+    // final res = _probabilityProcessor.process(_outputBuffer);
+
+    // final shape = res.getShape();
+    // final resss = getFirstAxisWithSizeGreaterThanOne(res);
+
     final labeledProb = TensorLabel.fromList(
       labels,
       _probabilityProcessor.process(_outputBuffer),
     ).getMapWithFloatValue();
+
     final pred = getTopProbability(labeledProb);
 
     return Category(pred.key, pred.value);
@@ -141,4 +169,22 @@ int compare(MapEntry<String, double> e1, MapEntry<String, double> e2) {
   } else {
     return 1;
   }
+}
+
+int getFirstAxisWithSizeGreaterThanOne(TensorBuffer tensorBuffer) {
+  final shape = tensorBuffer.getShape();
+  for (var i = 0; i < shape.length; i++) {
+    if (shape[i] > 1) {
+      return i;
+    }
+  }
+  throw ArgumentError(
+    'Cannot find an axis to label. A valid axis to label should have size larger than 1.',
+  );
+}
+
+Map<int, List<String>> makeMap(int axis, List<String> labels) {
+  final map = <int, List<String>>{};
+  map[axis] = labels;
+  return map;
 }
