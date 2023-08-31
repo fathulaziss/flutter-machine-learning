@@ -1,8 +1,6 @@
-Jangkosr
-Underriper
-Abnormalr
-Riper
-Unriper
-Overriper
-inplacer
-strider
+Jangkos
+Underripe
+Abnormal
+Ripe
+Unripe
+Overripe
