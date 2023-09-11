@@ -8,6 +8,7 @@ import 'package:flutter_machine_learning/services/navigation_service.dart';
 import 'package:flutter_machine_learning/ui/home/home_view.dart';
 import 'package:flutter_machine_learning/ui/picture/picture_view.dart';
 import 'package:flutter_machine_learning/ui/video/video_view.dart';
+import 'package:flutter_machine_learning/ui/yolov5/yolov5_classification_view.dart';
 import 'package:flutter_machine_learning/utils/app_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -62,6 +63,8 @@ class _MyAppState extends State<MyApp> {
           HomeView.routeName: (context) => const HomeView(),
           PictureView.routeName: (context) => const PictureView(),
           VideoView.routeName: (context) => const VideoView(),
+          Yolov5ClassificationView.routeName: (context) =>
+              const Yolov5ClassificationView(),
         },
       ),
     );

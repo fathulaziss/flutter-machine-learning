@@ -3,6 +3,7 @@ import 'package:flutter_machine_learning/common/styles.dart';
 import 'package:flutter_machine_learning/services/navigation_service.dart';
 import 'package:flutter_machine_learning/ui/picture/picture_view.dart';
 import 'package:flutter_machine_learning/ui/video/video_view.dart';
+import 'package:flutter_machine_learning/ui/yolov5/yolov5_classification_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -30,6 +31,15 @@ class HomeView extends StatelessWidget {
               onPressed: () => NavigationService.pushNamed(VideoView.routeName),
               child: Text(
                 'Machine Learning Video',
+                style: textStyle.labelMedium!.copyWith(color: Colors.white),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () => NavigationService.pushNamed(
+                Yolov5ClassificationView.routeName,
+              ),
+              child: Text(
+                'Yolov5 Clasification',
                 style: textStyle.labelMedium!.copyWith(color: Colors.white),
               ),
             ),
