@@ -60,6 +60,8 @@ abstract class MachineLearningPictureService {
       _outputType = interpreter.getOutputTensor(0).type;
       print('inputType : $_inputType');
       print('outputType : $_outputType');
+      print('inputShape : $_inputShape');
+      print('ouputShape : $_outputShape');
 
       if (interpreter.getInputTensor(0).type == TensorType.uint8 &&
           interpreter.getOutputTensor(0).type == TensorType.uint8) {

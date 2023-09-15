@@ -62,13 +62,27 @@ class MachineLearningVideoService {
       }
 
       final outputTensors = _interpreter.getOutputTensors();
+      final inputTensors = _interpreter.getInputTensors();
 
       _outputShapes = [];
       _outputTypes = [];
+      final inputShapes = [];
+      final inputTypes = [];
 
       for (final tensor in outputTensors) {
         _outputShapes.add(tensor.shape);
         _outputTypes.add(tensor.type);
+      }
+
+      for (final tensor in inputTensors) {
+        inputShapes.add(tensor.shape);
+        inputTypes.add(tensor.type);
+      }
+      if (kDebugMode) {
+        print('output_shapes : $_outputShapes');
+        print('output_types : $_outputTypes');
+        print('inputShapes : $inputShapes');
+        print('inputTypes : $inputTypes');
       }
     } catch (e) {
       if (kDebugMode) {
@@ -148,6 +162,9 @@ class MachineLearningVideoService {
 
     // Maximum number of results to show
     final resultsCount = min(numResult, numLocations.getIntValue(0));
+    if (kDebugMode) {
+      print('resultsCount = $resultsCount');
+    }
 
     // Using labelOffset = 1 as ??? at index 0
     const labelOffset = 1;
